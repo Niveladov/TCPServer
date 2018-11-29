@@ -29,7 +29,7 @@ namespace TCPServer
                 case LOG_ON:
                     return new LogOnCommand();
                 case LOG_OFF:
-                    return new LogOnCommand();
+                    return new LogOffCommand();
                 case REPORT_ON:
                     return new ReportOnCommand();
                 case REPORT_OFF:
