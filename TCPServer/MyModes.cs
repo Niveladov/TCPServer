@@ -48,7 +48,6 @@ namespace TCPServer
                 Reply = "";
                 if (Enable)
                 {
-                    connection.Timer.Stop();
                     Reply = $"{connection.RecievedMessage.Replace("\r\n", "")} {connection.Timer.Elapsed.TotalMilliseconds} milliseconds\r\n";
                     connection.Timer.Reset();
                 }
