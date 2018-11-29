@@ -16,21 +16,21 @@ namespace TCPServer
 
         public void Run()
         {
-            Console.WriteLine("Введите IP-адресс сервера:");
+            Console.WriteLine("Enter server IP address:");
             _addres = Console.ReadLine();
-            Console.WriteLine("Введите порт сервера:");
+            Console.WriteLine("Enter server port:");
             _port = Convert.ToInt32(Console.ReadLine());
 
             try
             {
                 _listener = new TcpListener(IPAddress.Parse(_addres), _port);
                 _listener.Start();
-                Console.WriteLine("Ожидание подключений...");
+                Console.WriteLine("Waiting for connections...");
 
                 while (true)
                 {
                     var client = _listener.AcceptTcpClient();
-                    var message = $"You connected to the server {_addres} {_port}";
+                    var message = $"You connected to the server {_addres} {_port}\r\n";
                     var bytes = Encoding.ASCII.GetBytes(message);
                     client.GetStream().Write(bytes, 0, bytes.Length);
                     var connectionObject = new Connection(client);

@@ -12,9 +12,9 @@ namespace TCPServer
     {
         private readonly TcpClient _client;
 
+        public string RecievedMessage { get; private set; }
         public List<IConnectionMode> Modes { get; }
         public Stopwatch Timer { get; }
-        public string RecievedMessage { get; private set; }
 
         public Connection(TcpClient tcpClient)
         {
