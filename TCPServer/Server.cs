@@ -35,9 +35,9 @@ namespace TCPServer
                     client.GetStream().Write(bytes, 0, bytes.Length);
                     var connectionObject = new Connection(client);
 
-                    //to create new task to service a new client
-                    var clentTask = new Task(connectionObject.Process);
-                    clentTask.Start();
+                    //to create new task to service a new connection
+                    var connectionTask = new Task(connectionObject.Process);
+                    connectionTask.Start();
                 }
             }
             catch (Exception ex)

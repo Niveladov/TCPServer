@@ -8,12 +8,12 @@ namespace TCPServer
 {
     internal static class MyCommands
     {
-        public const string TIME = "time\r\n";
-        public const string REPORT_ON = "report:on\r\n";
-        public const string REPORT_OFF = "report:off\r\n";
-        public const string LOG_ON = "log:on\r\n";
-        public const string LOG_OFF = "log:off\r\n";
-        public const string END = "\r\n";
+        private const string TIME = "time\r\n";
+        private const string REPORT_ON = "report:on\r\n";
+        private const string REPORT_OFF = "report:off\r\n";
+        private const string LOG_ON = "log:on\r\n";
+        private const string LOG_OFF = "log:off\r\n";
+        private const string END = "\r\n";
 
         public static bool IsEndOfCommand(string command)
         {
@@ -43,14 +43,14 @@ namespace TCPServer
     internal interface ICommand
     {
         string Reply { get; }
-        void DoWork(List<IConnectionMode> modes);
+        void DoWork(IConnectionMode[] modes);
     }
 
     internal sealed class TimeCommand : ICommand
     {
         public string Reply { get; private set; }
 
-        public void DoWork(List<IConnectionMode> modes)
+        public void DoWork(IConnectionMode[] modes)
         {
             Reply = $"{DateTime.Now.ToString()}\r\n";
         }
@@ -60,7 +60,7 @@ namespace TCPServer
     {
         public string Reply { get { return ""; } }
 
-        public void DoWork(List<IConnectionMode> modes)
+        public void DoWork(IConnectionMode[] modes)
         {
             var logMode = modes.OfType<LogMode>().Single();
             if (!logMode.Enable) logMode.Enable = true;
@@ -71,7 +71,7 @@ namespace TCPServer
     {
         public string Reply { get { return ""; } }
 
-        public void DoWork(List<IConnectionMode> modes)
+        public void DoWork(IConnectionMode[] modes)
         {
             var logMode = modes.OfType<LogMode>().Single();
             if (logMode.Enable) logMode.Enable = false;
@@ -82,7 +82,7 @@ namespace TCPServer
     {
         public string Reply { get { return ""; } }
 
-        public void DoWork(List<IConnectionMode> modes)
+        public void DoWork(IConnectionMode[] modes)
         {
             var reportMode = modes.OfType<ReportMode>().Single();
             if (!reportMode.Enable) reportMode.Enable = true;
@@ -93,7 +93,7 @@ namespace TCPServer
     {
         public string Reply { get { return ""; } }
 
-        public void DoWork(List<IConnectionMode> modes)
+        public void DoWork(IConnectionMode[] modes)
         {
             var reportMode = modes.OfType<ReportMode>().Single();
             if (reportMode.Enable) reportMode.Enable = false;

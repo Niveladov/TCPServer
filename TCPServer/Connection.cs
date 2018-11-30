@@ -13,14 +13,14 @@ namespace TCPServer
         private readonly TcpClient _client;
 
         public string RecievedMessage { get; private set; }
-        public List<IConnectionMode> Modes { get; }
+        public IConnectionMode[] Modes { get; }
         public Stopwatch Timer { get; }
 
         public Connection(TcpClient tcpClient)
         {
             _client = tcpClient;
             Timer = new Stopwatch();
-            Modes = new List<IConnectionMode>()
+            Modes = new IConnectionMode[]
             {
                 new ReportMode(),
                 new LogMode(),
@@ -50,7 +50,7 @@ namespace TCPServer
 
                     Timer.Start();
                     RecievedMessage = builder.ToString();
-                    if (!RecievedMessage.Equals(MyCommands.END))
+                    if (!MyCommands.IsEndOfCommand(RecievedMessage))
                     {
                         Console.WriteLine(RecievedMessage);
                         var replyMessage = DoWorkAndGetReply();
