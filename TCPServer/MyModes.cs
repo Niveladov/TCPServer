@@ -9,7 +9,6 @@ namespace TCPServer
 {
     internal interface IConnectionMode
     {
-        bool Enable { get; }
         string Reply { get; }
         void DoWork(Connection connection);
     }
@@ -17,8 +16,7 @@ namespace TCPServer
     internal sealed class DefaultMode : IConnectionMode
     {
         private ICommand _command;
-
-        public bool Enable { get { return true; } } 
+        
         public string Reply { get { return _command?.Reply ?? ""; } }
 
         public void DoWork(Connection connection)
